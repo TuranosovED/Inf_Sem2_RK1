@@ -48,31 +48,30 @@ void ListRender(obj **mas,MassiveMemoryNeed necessity,int ListCounter,HANDLE Con
 void Render(obj mas,HANDLE ConsoleHandle,int ListCounter, int ShiftX , int ShiftY)
 {
     SetConsoleCursorPosition(ConsoleHandle,(COORD){ShiftX,ShiftY}); // Переводим курсор на необ символ
-
-    if(mas.IsTrue == 1) //проверка символа, 1 - зеленый
+    switch (mas.IsTrue)
     {
-        if(mas.Sign != ' ' && mas.Sign != '\n')
-            printf("\033[32m%c\033[0m",mas.Sign);
-        else if (mas.Sign == '\n') printf("\033[0;42m \033[0m");
-        else 
-            printf("\033[0;42m%c\033[0m",mas.Sign); 
-    }    
-    else if(mas.IsTrue == 2) //2 - подстветка для cmd
-    {
-        if(mas.Sign != '\n' && mas.Sign != ' ') //подсветка \n
-            printf("\033[0;44m%c\033[0m",mas.Sign); 
-        else if(mas.Sign == ' ')
-            printf("\033[0;44m_\033[0m",mas.Sign); // вывод _ в подствеке для того чтобы отличать \n и ' '
-        else printf("\033[0;44m \033[0m");
-    }    
-    else //проверка символа, 0 - красный
-    {
-        if(mas.Sign != ' ' && mas.Sign != '\n')
-            printf("\033[31m%c\033[0m",mas.Sign);
-        else if (mas.Sign == '\n')
-            printf("\033[0;41m \033[0m");
-        else printf("\033[0;41m%c\033[0m",mas.Sign);
+        case 1: //проверка символа, 1 - зеленый
+            if(mas.Sign != ' ' && mas.Sign != '\n')
+                printf("\033[32m%c\033[0m",mas.Sign);
+            else if (mas.Sign == '\n') 
+                printf("\033[0;42m \033[0m");
+            else 
+                printf("\033[0;42m%c\033[0m",mas.Sign); 
+            break;
+        case 2: //2 - подстветка для cmd
+            if(mas.Sign != '\n' && mas.Sign != ' ') //подсветка \n
+                printf("\033[0;44m%c\033[0m",mas.Sign); 
+            else if(mas.Sign == ' ')
+                printf("\033[0;44m_\033[0m",mas.Sign); // вывод _ в подствеке для того чтобы отличать \n и ' '
+            else printf("\033[0;44m \033[0m");
+            break;
+        default: //проверка символа, 0 - красный
+            if(mas.Sign != ' ' && mas.Sign != '\n')
+                printf("\033[31m%c\033[0m",mas.Sign);
+            else if (mas.Sign == '\n')
+                printf("\033[0;41m \033[0m");
+            else printf("\033[0;41m%c\033[0m",mas.Sign);
+                break;
     }
-
     SetConsoleCursorPosition(ConsoleHandle,(COORD){ShiftX,ShiftY});
 }
